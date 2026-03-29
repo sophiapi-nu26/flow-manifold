@@ -1,0 +1,157 @@
+(base) [sophiapi@login4 ~]$   sinfo -o "%P %G %C %l"                                                                                                  
+PARTITION GRES CPUS(A/I/O/T) TIMELIMIT
+array gpu:A6000:10 38/0/10/48 12-00:00:00
+array gpu:RTX_PRO_6000:8 406/426/0/832 12-00:00:00
+array gpu:A6000:8 1252/412/64/1728 12-00:00:00
+array gpu:A100_80GB:8 223/161/0/384 12-00:00:00
+array gpu:L40:8 459/309/0/768 12-00:00:00
+array gpu:6000Ada:10 136/8/0/144 12-00:00:00
+array gpu:H200:4 48/16/0/64 12-00:00:00
+array gpu:A100_40GB:8 136/56/0/192 12-00:00:00
+array gpu:L40S:8 2418/116/282/2816 12-00:00:00
+array gpu:A6000:4 190/2/0/192 12-00:00:00
+array gpu:6000Ada:6 117/11/0/128 12-00:00:00
+array gpu:6000Ada:8 126/2/0/128 12-00:00:00
+debug gpu:A6000:10 38/0/10/48 12:00:00
+debug gpu:RTX_PRO_6000:8 406/426/0/832 12:00:00
+debug gpu:A6000:8 1252/412/64/1728 12:00:00
+debug gpu:A100_80GB:8 223/161/0/384 12:00:00
+debug gpu:L40:8 459/309/0/768 12:00:00
+debug gpu:6000Ada:10 136/8/0/144 12:00:00
+debug gpu:H200:4 48/16/0/64 12:00:00
+debug gpu:A100_40GB:8 136/56/0/192 12:00:00
+debug gpu:L40S:8 2418/116/282/2816 12:00:00
+debug gpu:A6000:4 190/2/0/192 12:00:00
+debug gpu:6000Ada:6 117/11/0/128 12:00:00
+debug gpu:6000Ada:8 126/2/0/128 12:00:00
+general* gpu:A6000:10 38/0/10/48 2-00:00:00
+general* gpu:RTX_PRO_6000:8 406/426/0/832 2-00:00:00
+general* gpu:A6000:8 1252/412/64/1728 2-00:00:00
+general* gpu:A100_80GB:8 223/161/0/384 2-00:00:00
+general* gpu:L40:8 459/309/0/768 2-00:00:00
+general* gpu:6000Ada:10 136/8/0/144 2-00:00:00
+general* gpu:H200:4 48/16/0/64 2-00:00:00
+general* gpu:A100_40GB:8 136/56/0/192 2-00:00:00
+general* gpu:L40S:8 2418/116/282/2816 2-00:00:00
+general* gpu:A6000:4 190/2/0/192 2-00:00:00
+general* gpu:6000Ada:6 117/11/0/128 2-00:00:00
+general* gpu:6000Ada:8 126/2/0/128 2-00:00:00
+preempt gpu:A6000:10 38/0/10/48 31-00:00:00
+preempt gpu:RTX_PRO_6000:8 406/426/0/832 31-00:00:00
+preempt gpu:A6000:8 1252/412/64/1728 31-00:00:00
+preempt gpu:A100_80GB:8 312/352/104/768 31-00:00:00
+preempt gpu:L40:8 511/385/0/896 31-00:00:00
+preempt gpu:6000Ada:10 136/8/0/144 31-00:00:00
+preempt gpu:H200:4 48/16/0/64 31-00:00:00
+preempt gpu:A100_40GB:8 136/56/0/192 31-00:00:00
+preempt gpu:L40S:8 2418/116/282/2816 31-00:00:00
+preempt gpu:L40S:10 64/0/0/64 31-00:00:00
+preempt gpu:H100:8 288/0/0/288 31-00:00:00
+preempt gpu:A6000:4 190/2/0/192 31-00:00:00
+preempt gpu:6000Ada:6 117/11/0/128 31-00:00:00
+preempt gpu:6000Ada:8 126/2/0/128 31-00:00:00
+cpu gpu:A6000:8 1224/408/64/1696 2-00:00:00
+cpu gpu:L40:8 511/385/0/896 2-00:00:00
+cpu gpu:6000Ada:10 136/8/0/144 2-00:00:00
+cpu gpu:A6000:4 158/2/0/160 2-00:00:00
+cpu gpu:A6000:10 32/0/0/32 2-00:00:00
+cpu gpu:6000Ada:6 117/11/0/128 2-00:00:00
+cpu gpu:6000Ada:8 126/2/0/128 2-00:00:00
+flame-earlybirds gpu:H100:8 288/0/0/288 2-00:00:00
+(base) [sophiapi@login4 ~]$   sinfo -o "%P %N %G" | grep -i gpu
+array babel-t9-32,babel-u9-32 gpu:A6000:10
+array babel-l5-[16,20],babel-m9-[16,20],babel-n9-20 gpu:RTX_PRO_6000:8
+array babel-m5-[16,20,24,28,32],babel-n5-[24,28,32],babel-n9-[24,28,32],babel-o5-[16,20,24,28,32],babel-o9-[16,20,24,28,32],babel-p5-[20,24,28,32],babel-p9-[16,20,24,28,32],babel-q5-[16,20,24,28,32],babel-q9-[16,20,24,28,32],babel-s5-[24,28,32],babel-t5-[24,28,32],babel-u5-[24,28],babel-v9-28,babel-x9-32 gpu:L40S:8
+array babel-n5-[16,20],babel-s9-[16,20,24,28],babel-t9-[16,20,24,28],babel-u9-[16,20,24,28],babel-v9-[16,20,24,32],babel-w9-[28,32] gpu:A6000:8
+array babel-v5-[20,28,32] gpu:A100_80GB:8
+array babel-w5-[16,20,24,28,32],babel-x5-28 gpu:L40:8
+array babel-x5-16,babel-x9-[16,20] gpu:6000Ada:10
+array babel-y5-16 gpu:H200:4
+array babel-y9-[08,12,16] gpu:A100_40GB:8
+array babel-s9-32,babel-w9-[16,18,20,22,24,26] gpu:A6000:4
+array babel-x5-[20,24] gpu:6000Ada:6
+array babel-x9-[24,28] gpu:6000Ada:8
+debug babel-t9-32,babel-u9-32 gpu:A6000:10
+debug babel-l5-[16,20],babel-m9-[16,20],babel-n9-20 gpu:RTX_PRO_6000:8
+debug babel-m5-[16,20,24,28,32],babel-n5-[24,28,32],babel-n9-[24,28,32],babel-o5-[16,20,24,28,32],babel-o9-[16,20,24,28,32],babel-p5-[20,24,28,32],babel-p9-[16,20,24,28,32],babel-q5-[16,20,24,28,32],babel-q9-[16,20,24,28,32],babel-s5-[24,28,32],babel-t5-[24,28,32],babel-u5-[24,28],babel-v9-28,babel-x9-32 gpu:L40S:8
+debug babel-n5-[16,20],babel-s9-[16,20,24,28],babel-t9-[16,20,24,28],babel-u9-[16,20,24,28],babel-v9-[16,20,24,32],babel-w9-[28,32] gpu:A6000:8
+debug babel-v5-[20,28,32] gpu:A100_80GB:8
+debug babel-w5-[16,20,24,28,32],babel-x5-28 gpu:L40:8
+debug babel-x5-16,babel-x9-[16,20] gpu:6000Ada:10
+debug babel-y5-16 gpu:H200:4
+debug babel-y9-[08,12,16] gpu:A100_40GB:8
+debug babel-s9-32,babel-w9-[16,18,20,22,24,26] gpu:A6000:4
+debug babel-x5-[20,24] gpu:6000Ada:6
+debug babel-x9-[24,28] gpu:6000Ada:8
+general* babel-t9-32,babel-u9-32 gpu:A6000:10
+general* babel-l5-[16,20],babel-m9-[16,20],babel-n9-20 gpu:RTX_PRO_6000:8
+general* babel-m5-[16,20,24,28,32],babel-n5-[24,28,32],babel-n9-[24,28,32],babel-o5-[16,20,24,28,32],babel-o9-[16,20,24,28,32],babel-p5-[20,24,28,32],babel-p9-[16,20,24,28,32],babel-q5-[16,20,24,28,32],babel-q9-[16,20,24,28,32],babel-s5-[24,28,32],babel-t5-[24,28,32],babel-u5-[24,28],babel-v9-28,babel-x9-32 gpu:L40S:8
+general* babel-n5-[16,20],babel-s9-[16,20,24,28],babel-t9-[16,20,24,28],babel-u9-[16,20,24,28],babel-v9-[16,20,24,32],babel-w9-[28,32] gpu:A6000:8
+general* babel-v5-[20,28,32] gpu:A100_80GB:8
+general* babel-w5-[16,20,24,28,32],babel-x5-28 gpu:L40:8
+general* babel-x5-16,babel-x9-[16,20] gpu:6000Ada:10
+general* babel-y5-16 gpu:H200:4
+general* babel-y9-[08,12,16] gpu:A100_40GB:8
+general* babel-s9-32,babel-w9-[16,18,20,22,24,26] gpu:A6000:4
+general* babel-x5-[20,24] gpu:6000Ada:6
+general* babel-x9-[24,28] gpu:6000Ada:8
+preempt babel-t9-32,babel-u9-32 gpu:A6000:10
+preempt babel-l5-[16,20],babel-m9-[16,20],babel-n9-20 gpu:RTX_PRO_6000:8
+preempt babel-m5-[16,20,24,28,32],babel-n5-[24,28,32],babel-n9-[24,28,32],babel-o5-[16,20,24,28,32],babel-o9-[16,20,24,28,32],babel-p5-[20,24,28,32],babel-p9-[16,20,24,28,32],babel-q5-[16,20,24,28,32],babel-q9-[16,20,24,28,32],babel-s5-[24,28,32],babel-t5-[24,28,32],babel-u5-[24,28],babel-v9-28,babel-x9-32 gpu:L40S:8
+preempt babel-n5-[16,20],babel-s9-[16,20,24,28],babel-t9-[16,20,24,28],babel-u9-[16,20,24,28],babel-v9-[16,20,24,32],babel-w9-[28,32] gpu:A6000:8
+preempt babel-u5-32,babel-v5-[16,20,24,28,32] gpu:A100_80GB:8
+preempt babel-w5-[16,20,24,28,32],babel-x5-[28,32] gpu:L40:8
+preempt babel-x5-16,babel-x9-[16,20] gpu:6000Ada:10
+preempt babel-y5-16 gpu:H200:4
+preempt babel-y9-[08,12,16] gpu:A100_40GB:8
+preempt babel-p5-16 gpu:L40S:10
+preempt babel-s5-16,babel-t5-16,babel-u5-16 gpu:H100:8
+preempt babel-s9-32,babel-w9-[16,18,20,22,24,26] gpu:A6000:4
+preempt babel-x5-[20,24] gpu:6000Ada:6
+preempt babel-x9-[24,28] gpu:6000Ada:8
+cpu babel-n5-[16,20],babel-s9-[16,20,24,28],babel-t9-[16,20,24,28],babel-u9-[16,24,28],babel-v9-[16,20,24,32],babel-w9-[28,32] gpu:A6000:8
+cpu babel-w5-[16,20,24,28,32],babel-x5-[28,32] gpu:L40:8
+cpu babel-x5-16,babel-x9-[16,20] gpu:6000Ada:10
+cpu babel-s9-32,babel-w9-[16,20,22,26] gpu:A6000:4
+cpu babel-u9-32 gpu:A6000:10
+cpu babel-x5-[20,24] gpu:6000Ada:6
+cpu babel-x9-[24,28] gpu:6000Ada:8
+flame-earlybirds babel-s5-16,babel-t5-16,babel-u5-16 gpu:H100:8
+(base) [sophiapi@login4 ~]$  which conda 2>/dev/null && echo "conda found" || echo "no conda"
+conda ()
+{ 
+    \local cmd="${1-__missing__}";
+    case "$cmd" in 
+        activate | deactivate)
+            __conda_activate "$@"
+        ;;
+        install | update | upgrade | remove | uninstall)
+            __conda_exe "$@" || \return;
+            __conda_activate reactivate
+        ;;
+        *)
+            __conda_exe "$@"
+        ;;
+    esac
+}
+conda found
+
+(flowmanifold) [sophiapi@login1 flow-manifold]$  sacctmgr show qos format=name,maxsubmitjobsperuser | grep -v "^\s*$"
+      Name MaxSubmitPU 
+---------- -----------
+    normal          50
+preempt_q+         100
+ debug_qos          12
+   cpu_qos          50
+cx_ann_qos          50
+ array_qos       10000
+ admin_qos
+earlybird+           2
+ forge_qos          50 
+maxlab_qos          50
+    rl_qos          50
+
+(flowmanifold) [sophiapi@login1 flow-manifold]$ sacctmgr show user $USER withassoc format=user,account,qos,defaultqos
+      User    Account                  QOS   Def QOS 
+---------- ---------- -------------------- ---------
+  sophiapi    gneubig cpu_qos,debug_qos,e+    normal

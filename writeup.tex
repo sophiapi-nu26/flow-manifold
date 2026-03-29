@@ -1,0 +1,135 @@
+\section{Additional Experimental Results}
+\label{appdx:experimental-results}
+
+In this appendix, we provide a small synthetic study validating the intrinsic-dimension scaling behavior predicted by our theory. Our main theoretical claim is that, under the low-dimensional linear latent subspace assumption, the statistically difficult component of the velocity field is the tangent component, whose complexity depends primarily on the intrinsic dimension $d_0$ rather than the ambient dimension $d_x$. The experiments in this appendix test this claim in a controlled setting.
+
+\subsection{Synthetic Setup}
+
+We consider the synthetic latent-subspace model
+\begin{align}
+h \sim \sum_{m=1}^M \pi_m \mathcal{N}(\mu_m, \Sigma_m),
+\qquad
+x = Uh,
+\end{align}
+where $U \in \mathbb{R}^{d_x \times d_0}$ has orthonormal columns and $h \in \mathbb{R}^{d_0}$ follows a Gaussian mixture model with $M=4$ components. We generate $U$ by orthogonalizing a Gaussian random matrix and fix one canonical GMM for each value of $d_0$.
+
+For the forward interpolation path, we use the standard linear flow-matching path
+\begin{align}
+X_t = t X_1 + (1-t) X_0,
+\qquad
+X_0 \sim \mathcal{N}(0, I_{d_x}),
+\end{align}
+with $t \sim \mathrm{Unif}[\varepsilon, 1-\varepsilon]$ and $\varepsilon = 0.01$.
+
+Our latent model receives the projected latent coordinate
+\begin{align}
+\bar{h} = U^\top x_t \in \mathbb{R}^{d_0}
+\end{align}
+together with a sinusoidal time embedding and predicts the tangent velocity in latent space. The analytically known normal component is added back exactly:
+\begin{align}
+\hat{u}(x_t,t)
+=
+U \hat{v}(\bar{h}, t)
+-
+\frac{1}{1-t}(I-UU^\top)x_t.
+\end{align}
+
+The model architecture is fixed across all settings: a four-layer MLP with hidden width $256$, SiLU activations, AdamW optimizer, learning rate $3 \times 10^{-4}$, batch size $256$, and $150$ epochs. We report averages over five random seeds.
+
+\subsection{Evaluation Metrics}
+
+Our primary metric is the per-dimension tangent oracle MSE:
+\begin{align}
+\mathrm{MSE}_{\mathrm{tan}}^{\mathrm{per\text{-}dim}}
+=
+\frac{1}{d_0}
+\mathbb{E}
+\left[
+\left\|
+\hat{v}(\bar{h}, t) - v^\star(\bar{h}, t)
+\right\|_2^2
+\right],
+\end{align}
+where the oracle tangent velocity is
+\begin{align}
+v^\star(\bar{h}, t)
+=
+\frac{1}{t}\bar{h}
++
+\frac{1-t}{t}
+\nabla_{\bar{h}} \log p_t^h(\bar{h}).
+\end{align}
+
+We divide by $d_0$ so that changes in the metric reflect statistical difficulty rather than the number of output coordinates. We also report the total tangent oracle MSE
+\begin{align}
+\mathrm{MSE}_{\mathrm{tan}}^{\mathrm{total}}
+=
+\mathbb{E}
+\left[
+\left\|
+\hat{v}(\bar{h}, t) - v^\star(\bar{h}, t)
+\right\|_2^2
+\right]
+\end{align}
+as a secondary metric. We additionally verify that the normal MSE—measuring the discrepancy between the analytically reconstructed normal component and its theoretical expression—is numerically negligible across all runs ($\leq 3 \times 10^{-10}$), confirming that the analytical reconstruction is implemented correctly.
+
+\subsection{Intrinsic versus Ambient Dimension Scaling}
+
+Figure~\ref{fig:appendix_scaling} shows per-dimension tangent oracle MSE as a function of training set size for two experimental panels.
+
+\paragraph{Panel A: varying ambient dimension.}
+We fix $d_0 = 4$ and vary $d_x \in \{32, 128, 512\}$. To make the comparison as clean as possible, all three values of $d_x$ use the same latent GMM, the same latent training samples, and the same held-out evaluation set; only the ambient embedding matrix $U$ changes across conditions.
+
+The three curves are nearly identical at all training set sizes. At $n_{\mathrm{train}} = 2000$ the spread across $d_x$ values is negligible (ratio of largest to smallest mean MSE: $1.01\times$), and at $n_{\mathrm{train}} = 50000$ it remains small ($1.29\times$), with all three curves lying in the same order of magnitude and overlapping within error bars. There is no systematic trend with $d_x$: the curves do not separate or diverge as ambient dimension increases. This confirms that, once the estimator operates only on latent coordinates with oracle access to $U$, changing the ambient embedding dimension has little effect on tangent estimation accuracy.
+
+\paragraph{Panel B: varying intrinsic dimension.}
+We fix $d_x = 128$ and vary $d_0 \in \{2, 4, 8, 16\}$, using one independently sampled canonical GMM per value of $d_0$.
+
+The curves separate clearly according to intrinsic dimension. At $n_{\mathrm{train}} = 2000$ the ordering is perfectly monotone with a roughly $6\times$ gap between $d_0 = 2$ and $d_0 = 16$. At larger training set sizes, $d_0 = 2$ remains consistently the easiest and $d_0 = 16$ consistently the hardest across all seeds; the middle values $d_0 = 4$ and $d_0 = 8$ are close to each other at $n_{\mathrm{train}} = 50000$ (means $0.014$ and $0.015$ respectively, within one standard deviation), which we attribute to the different canonical GMMs drawn for each $d_0$ producing problems of similar difficulty at that sample size. All curves decrease with $n_{\mathrm{train}}$, with higher-$d_0$ curves decreasing more slowly.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/figure1.pdf}
+    \caption{
+    Per-dimension tangent oracle MSE as a function of training set size.
+    \emph{Left (Panel A):} fixing $d_0 = 4$ and varying $d_x \in \{32,128,512\}$,
+    the three curves are nearly identical at all training set sizes, confirming
+    that ambient dimension has little effect on tangent estimation accuracy once
+    the estimator operates only on latent coordinates.
+    \emph{Right (Panel B):} fixing $d_x = 128$ and varying $d_0 \in \{2,4,8,16\}$,
+    larger intrinsic dimension produces higher MSE and slower improvement with
+    training set size; $d_0 = 2$ is consistently the easiest and $d_0 = 16$
+    consistently the hardest.
+    Error bars denote standard deviation across five random seeds.
+    }
+    \label{fig:appendix_scaling}
+\end{figure}
+
+\subsection{Tangent Velocity Diagnostics}
+
+Figure~\ref{fig:appendix_tangent_diag} reports three diagnostics for the representative configuration $(d_x, d_0, n_{\mathrm{train}}) = (128, 4, 50000)$.
+
+\paragraph{Panel A: learned versus oracle tangent velocity.}
+We plot learned against oracle tangent velocity coordinates for $5000$ held-out points $(\bar{h}, t)$, coloring each point by latent coordinate index. The scatter lies tightly along the diagonal for all four coordinates, with per-coordinate correlations above $0.99$ and per-coordinate MSE ranging from $0.012$ to $0.019$. There is no visible coordinate-specific failure mode.
+
+\paragraph{Panel B: tangent oracle MSE during training.}
+Per-dimension tangent oracle MSE decreases from $0.040$ at epoch $10$ to $0.015$ at epoch $150$, a reduction of approximately $2.7\times$. The training loss decreases in parallel. Both quantities improve steadily throughout training with no sign of stagnation or divergence.
+
+\paragraph{Panel C: latent endpoint distribution.}
+We generate $2000$ latent samples by integrating the learned ODE $dh/dt = \hat{v}(h,t)$ from Gaussian noise using Euler integration ($100$ steps), and compare against $2000$ draws from the true latent GMM. The per-coordinate means and standard deviations of the generated and reference distributions match closely. Sliced Wasserstein distance (500 projections) between the two distributions is $0.093$. The joint-PCA scatter shows good overlap between the generated and reference clouds.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/figure2_dx128_d04_n50000_seed0.pdf}
+    \caption{
+    Tangent-component diagnostics for the representative setting $(d_x,d_0,n_{\mathrm{train}}) = (128,4,50000)$.
+    \emph{Left (Panel A):} learned tangent velocities align closely with oracle tangent velocities across all four latent coordinates, with per-coordinate correlations above $0.99$.
+    \emph{Middle (Panel B):} per-dimension tangent oracle MSE decreases $2.7\times$ over $150$ epochs, alongside the flow-matching training loss.
+    \emph{Right (Panel C):} generated latent samples match the reference GMM distribution closely; sliced Wasserstein distance is $0.093$.
+    }
+    \label{fig:appendix_tangent_diag}
+\end{figure}
+
+\subsection{Summary}
+
+Panel A shows that once subspace geometry is provided and the estimator operates in latent coordinates, changing $d_x$ over a $16\times$ range produces negligible variation in per-dimension tangent oracle MSE. Panel B shows that increasing $d_0$ makes the problem harder, with a clear separation between $d_0 = 2$ and $d_0 = 16$ at all training set sizes and all curves decreasing with $n_{\mathrm{train}}$. The diagnostic panels confirm that the learned tangent velocity field closely matches the oracle and that the latent ODE generates a distribution consistent with the true GMM. Taken together, these results support the tangent/normal decomposition and the intrinsic-dimension scaling behavior predicted by the theory.

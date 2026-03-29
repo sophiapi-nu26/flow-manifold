@@ -1,0 +1,11 @@
+{
+  "run_name": "dx512_d04_n2000_seed3",
+  "dx": 512,
+  "d0": 4,
+  "n_train": 2000,
+  "seed": 3,
+  "tangent_oracle_mse_per_dim": 0.0791033321261406,
+  "tangent_oracle_mse_total": 0.3164133285045624,
+  "normal_mse": 2.372559009700126e-10,
+  "wall_time_seconds": 7.905788898468018
+}

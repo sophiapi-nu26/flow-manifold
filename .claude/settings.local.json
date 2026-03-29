@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install:*)",
+      "Bash(python scripts/run_one_config.py --config configs/debug.yaml)",
+      "Bash(python scripts/run_one_config.py --config configs/debug.yaml --overwrite)",
+      "Bash(python:*)"
+    ]
+  }
+}

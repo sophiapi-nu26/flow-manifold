@@ -1,0 +1,67 @@
+(base) PS C:\Users\sophi\Documents\magics\fw-transformers-ldls> python scripts/debug_results.py --results experiments/flow_manifold_synth/results.csv
+Loaded 54 rows from experiments/flow_manifold_synth/results.csv
+dx values:      [32, 128, 512]
+d0 values:      [2, 4, 8, 16]
+n_train values: [2000, 10000, 50000]
+seeds:          [0, 1, 2]
+----------------------------------------------------------------------
+CHECK 1 — Panel A: fix d0=4, vary dx
+Theory: oracle_mse/dx should be roughly CONSTANT across dx.
+
+  n_train = 2000
+      dx    oracle_mse   oracle/dx   onsubspace/d0   normal/(dx-d0)  null_ratio
+      32         5.869      0.1834          0.5364           0.1330       0.133
+     128        66.322      0.5181          0.6393           0.5142       0.514
+     512       431.078      0.8419          0.8619           0.8418       0.842
+
+  n_train = 10000
+      dx    oracle_mse   oracle/dx   onsubspace/d0   normal/(dx-d0)  null_ratio
+      32         1.585      0.0495          0.0616           0.0478       0.048
+     128        22.329      0.1744          0.4744           0.1648       0.165
+     512       368.149      0.7190          0.9116           0.7175       0.718
+
+  n_train = 50000
+      dx    oracle_mse   oracle/dx   onsubspace/d0   normal/(dx-d0)  null_ratio
+      32         0.416      0.0130          0.0325           0.0102       0.010
+     128        10.884      0.0850          0.1721           0.0822       0.082
+     512       335.005      0.6543          0.7539           0.6535       0.654
+
+  null_ratio near 1.0 => model outputs ~zero for normal component
+  (likely cause: model hidden width < dx, insufficient capacity)
+----------------------------------------------------------------------
+CHECK 2 — Panel B: fix dx=128, vary d0
+Theory: oracle_mse/dx should INCREASE with d0 (more than Panel A varies).
+
+  n_train = 2000
+    d0    oracle_mse   oracle/dx   onsubspace/d0   normal/(dx-d0)  null_ratio
+     2        57.454      0.4489          0.4459           0.4489       0.449
+     4        66.322      0.5181          0.6393           0.5142       0.514
+     8        73.879      0.5772          0.6592           0.5717       0.572
+    16        86.262      0.6739          0.5641           0.6896       0.690
+
+  n_train = 10000
+    d0    oracle_mse   oracle/dx   onsubspace/d0   normal/(dx-d0)  null_ratio
+     2        20.129      0.1573          0.3513           0.1542       0.154
+     4        22.329      0.1744          0.4744           0.1648       0.165
+     8        25.271      0.1974          0.4940           0.1777       0.178
+    16        35.228      0.2752          0.3953           0.2581       0.258
+
+  n_train = 50000
+    d0    oracle_mse   oracle/dx   onsubspace/d0   normal/(dx-d0)  null_ratio
+     2        10.223      0.0799          0.1679           0.0785       0.078
+     4        10.884      0.0850          0.1721           0.0822       0.082
+     8        11.650      0.0910          0.1880           0.0846       0.085
+    16        13.120      0.1025          0.1928           0.0896       0.090
+
+----------------------------------------------------------------------
+CHECK 3 — Relative sensitivity: does d0 drive more variation than dx?
+Theory: spread across d0 values >> spread across dx values (per-dim).
+
+  n_train = 50000 (largest dataset, best-trained models)
+  Panel A (vary dx, d0=4):   max/min oracle_mse/dx = 50.34x
+  Panel B (vary d0, dx=128): max/min oracle_mse/dx = 1.28x
+
+  WARNING: dx drives MORE variation than d0 — inconsistent with theory.
+  Likely cause: model does not learn the normal component for large dx.
+  Fix: make model hidden width scale with dx (e.g. max(256, dx)).
+----------------------------------------------------------------------

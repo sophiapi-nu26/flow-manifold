@@ -1,0 +1,11 @@
+{
+  "run_name": "dx32_d04_n2000_seed2",
+  "dx": 32,
+  "d0": 4,
+  "n_train": 2000,
+  "seed": 2,
+  "tangent_oracle_mse_per_dim": 0.0851686775803566,
+  "tangent_oracle_mse_total": 0.3406747103214264,
+  "normal_mse": 2.0133176250117236e-11,
+  "wall_time_seconds": 9.778337478637695
+}

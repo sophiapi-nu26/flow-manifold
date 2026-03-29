@@ -1,0 +1,11 @@
+{
+  "run_name": "dx128_d08_n50000_seed4",
+  "dx": 128,
+  "d0": 8,
+  "n_train": 50000,
+  "seed": 4,
+  "tangent_oracle_mse_per_dim": 0.015534481596946717,
+  "tangent_oracle_mse_total": 0.12427585277557374,
+  "normal_mse": 1.0188590444104584e-10,
+  "wall_time_seconds": 167.71750164031982
+}

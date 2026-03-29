@@ -1,0 +1,11 @@
+{
+  "run_name": "debug",
+  "dx": 32,
+  "d0": 4,
+  "n_train": 2000,
+  "seed": 0,
+  "tangent_oracle_mse_per_dim": 1.9379402198791504,
+  "tangent_oracle_mse_total": 7.751760879516602,
+  "normal_mse": 1.449256860353021e-11,
+  "wall_time_seconds": 0.5090234279632568
+}
